@@ -1,0 +1,54 @@
+
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="push">
+        <mat-toolbar color="primary">
+            <span>Menú</span>
+
+            <span class="spacer"></span>
+
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </mat-toolbar>
+
+        <mat-nav-list>
+            <!-- Como en este punto ya me encuentro en la ruta de héroes por eso el ./listado y no hace falta definir toda la ruta entera -->
+            <a routerLink="./listado" mat-list-item (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>label</mat-icon>
+                <span>Listado de Héroes</span>
+            </a>
+
+            <a routerLink="./agregar" mat-list-item (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>add</mat-icon>
+                <span>Añadir Héroe</span>
+            </a>
+
+            <a routerLink="./buscar" mat-list-item (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>search</mat-icon>
+                <span>Buscar Héroe</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-toolbar>
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <span class="spacer"></span>
+
+        <span>{{ auth.usuario }}</span>
+
+        <button mat-button (click)="logout()">
+            Logout
+        </button>
+    </mat-toolbar>
+    
+    <div class="container">
+        <!-- 
+			Necesario poner el router-outlet en el componente padre para que se rendericen los componentes hijos. Para ello es necesario 
+			que el RouterModule sea exportado en el fichero de heroes-routing.module.ts
+		-->
+        <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>

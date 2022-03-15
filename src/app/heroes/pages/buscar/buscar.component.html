@@ -1,0 +1,46 @@
+
+<div fxLayout="column">
+    <div>
+        <h1>Buscador de Héroes</h1>
+        <mat-divider></mat-divider>
+    </div>
+
+    <div fxLayout="column">
+        <h3>Buscador</h3>
+        
+        <mat-form-field>
+            <!-- 
+                Como ya estamos tomando con el ngModel en tiempo real de lo que se vaya escribiendo en el input, no hace falta pasarle el 
+                evento.target.value en el evento (input) que nos hemos creado
+            -->
+            <input type="text"
+                placeholder="Pick one"
+                aria-label="Number"
+                matInput
+                [(ngModel)]="termino"
+                [matAutocomplete]="auto"
+                (input)="buscar()"
+            >
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="opcionSeleccionada( $event )">
+                <mat-option *ngFor="let heroe of heroes" [value]="heroe">
+                    {{ heroe.superhero }}
+                </mat-option>
+
+                <!-- Hacemos que se muestre un mensaje de error si no obtenemos resultados según lo que hayamos escrito (termino) -->
+                <mat-option *ngIf="heroes.length === 0 && termino" value="">
+                    No se ha encontrado nigún héroe con el término {{ termino }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <pre>{{ heroeSeleccionado | json }}</pre>
+    </div>
+
+    <!-- <div *ngIf="heroeSeleccionado">
+        <app-heroe-tarjeta [heroe]="heroeSeleccionado" ></app-heroe-tarjeta>
+    </div> -->
+
+</div>
+
